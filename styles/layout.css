@@ -1,0 +1,232 @@
+/* Layout CSS */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ============================================================
+   PARTIE SUPERIEURE : Barre d'en-tete du Grand Panel
+   ============================================================ */
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    z-index: 50;
+}
+
+.main-header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.main-header-panel-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+}
+
+.main-header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.help-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.help-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.help-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.tool-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.tool-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.tool-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ============================================================
+   PARTIE INFERIEURE : Zone des panels
+   ============================================================ */
+.panels-wrapper {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(100%);
+    transition: transform var(--transition-slow), opacity var(--transition-slow);
+    overflow-y: auto;
+}
+
+.panel.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+    position: relative;
+}
+
+.panel-content {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================================
+   statutPanel
+   ============================================================ */
+.statut-panel {
+    position: fixed;
+    bottom: 10px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(15,23,42,0.65);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(71,85,105,0.3);
+    border-radius: 6px;
+    padding: 3px 10px;
+    z-index: 80;
+    font-size: 0.65rem;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+    pointer-events: none;
+    user-select: none;
+}
+
+.statut-panel:hover { opacity: 1; }
+.statut-item { display: flex; align-items: center; gap: 4px; }
+.statut-label { color: var(--text-tertiary); font-weight: 600; text-transform: uppercase; font-size: 0.6rem; }
+.statut-value { color: var(--text-secondary); font-weight: 700; font-size: 0.72rem; font-variant-numeric: tabular-nums; }
+.statut-input-value { color: rgba(59,130,246,0.8); }
+.statut-output-value { color: rgba(16,185,129,0.8); }
+.statut-item-error { transition: all var(--transition-normal); }
+.statut-error-icon { width: 11px; height: 11px; color: var(--text-tertiary); opacity: 0.4; transition: all var(--transition-normal); }
+.statut-error-value { color: var(--text-tertiary); opacity: 0.5; transition: all var(--transition-normal); }
+.statut-item-error.has-errors .statut-error-icon { color: rgba(245,158,11,0.9); opacity: 1; }
+.statut-item-error.has-errors .statut-error-value { color: rgba(245,158,11,0.9); opacity: 1; }
+.statut-separator { width: 1px; height: 10px; background-color: rgba(71,85,105,0.4); }
+
+/* ============================================================
+   Navigation flottante
+   ============================================================ */
+.bottom-nav {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-height: var(--nav-height);
+    background-color: rgba(30,41,59,0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    z-index: 100;
+    width: auto;
+    max-width: calc(100% - 32px);
+}
+
+.nav-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    color: var(--text-tertiary);
+    transition: all var(--transition-normal);
+    white-space: nowrap;
+}
+
+.nav-btn:hover { background-color: rgba(51,65,85,0.6); color: var(--text-primary); }
+.nav-btn.active { color: var(--primary-color); background-color: rgba(59,130,246,0.15); }
+.nav-icon { width: 16px; height: 16px; flex-shrink: 0; }
+.nav-btn span { font-size: 0.8rem; font-weight: 500; }
+
+/* Notifications - en bas a droite */
+.notification-container {
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--spacing-sm);
+    max-width: 380px;
+    width: calc(100% - 40px);
+    pointer-events: none;
+}
+
+.notification { pointer-events: auto; }
+
+@media (max-width: 768px) {
+    .panel-content { padding: var(--spacing-md); }
+    .main-header { padding: var(--spacing-xs) var(--spacing-md); }
+    .bottom-nav { bottom: 14px; padding: var(--spacing-xs) var(--spacing-sm); }
+    .nav-btn { padding: 6px 10px; }
+    .nav-icon { width: 14px; height: 14px; }
+    .nav-btn span { font-size: 0.72rem; }
+    .statut-panel { bottom: 6px; right: 6px; }
+    .notification-container { bottom: 40px; right: 10px; left: auto; width: calc(100% - 20px); max-width: 360px; }
+}

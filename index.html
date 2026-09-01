@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gen_TabIO - Generateur de Tables</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/editor.css">
+    <link rel="stylesheet" href="styles/config.css">
+    <link rel="stylesheet" href="styles/preview.css">
+    <link rel="stylesheet" href="styles/export.css">
+    <link rel="stylesheet" href="styles/help-window.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+    <div class="notification-container" id="notification-container" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="app-container">
+
+        <header class="main-header">
+            <div class="main-header-left">
+                <span class="main-header-panel-name" id="main-header-panel-name">Edit</span>
+            </div>
+            <div class="main-header-right">
+                <button class="help-btn" id="main-header-help-btn" aria-label="Aide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <div class="panels-wrapper">
+
+            <div class="panel panel-config" id="panel-config">
+                <div class="panel-content config-panel-content">
+                    <section class="config-section" id="config-section-1">
+                        <div class="config-section-header">
+                            <span class="config-section-number">1</span>
+                            <h3 class="config-section-title">Definition de l'adresse</h3>
+                        </div>
+                        <div class="config-top-bar">
+                            <div class="config-select-group">
+                                <label class="config-select-label" for="config-plc-select">Automate</label>
+                                <select class="config-select" id="config-plc-select"></select>
+                            </div>
+                            <div class="config-toggle-group">
+                                <span class="config-toggle-label-text label-active" id="config-mode-label">Auto</span>
+                                <label class="config-toggle">
+                                    <input type="checkbox" id="config-mode-toggle" class="config-toggle-input" checked>
+                                    <span class="config-toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="config-columns">
+                            <div class="config-column">
+                                <div class="config-column-label"><span class="config-column-dot config-column-dot-input"></span><span>INPUT</span></div>
+                                <input type="text" class="config-field" id="config-input-format" spellcheck="false" autocomplete="off">
+                                <div class="config-field-info info-example" id="config-input-info"></div>
+                            </div>
+                            <div class="config-column">
+                                <div class="config-column-label"><span class="config-column-dot config-column-dot-output"></span><span>OUTPUT</span></div>
+                                <input type="text" class="config-field" id="config-output-format" spellcheck="false" autocomplete="off">
+                                <div class="config-field-info info-example" id="config-output-info"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="config-section" id="config-section-2">
+                        <div class="config-section-header">
+                            <span class="config-section-number">2</span>
+                            <h3 class="config-section-title">Formules de generation</h3>
+                        </div>
+                        <div class="gen-panel" id="gen-panel">
+                            <div class="gen-panel-column" id="gen-panel-input">
+                                <div class="gen-panel-column-header">
+                                    <span class="gen-panel-column-dot config-column-dot-input"></span>
+                                    <span class="gen-panel-column-title">INPUT</span>
+                                </div>
+                                <div class="gen-address-block">
+                                    <div class="gen-address-label">StartAddress</div>
+                                    <div class="gen-address-desc">Premiere adresse (pos = 1)</div>
+                                    <div class="gen-xyz-grid">
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-in-start-x-led"></span><span class="gen-xyz-label" id="gen-in-start-x-label">x</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-in-start-x-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-in-start-x" data-axis="x" data-group="input" data-type="start" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-in-start-x-popup"></div><div class="fx-field-error" id="gen-in-start-x-error"></div></div>
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-in-start-y-led"></span><span class="gen-xyz-label" id="gen-in-start-y-label">y</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-in-start-y-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-in-start-y" data-axis="y" data-group="input" data-type="start" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-in-start-y-popup"></div><div class="fx-field-error" id="gen-in-start-y-error"></div></div>
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-in-start-z-led"></span><span class="gen-xyz-label" id="gen-in-start-z-label">z</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-in-start-z-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-in-start-z" data-axis="z" data-group="input" data-type="start" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-in-start-z-popup"></div><div class="fx-field-error" id="gen-in-start-z-error"></div></div>
+                                    </div>
+                                </div>
+                                <div class="gen-address-block">
+                                    <div class="gen-address-label">OtherAddress</div>
+                                    <div class="gen-address-desc">Adresses suivantes (pos &gt; 1)</div>
+                                    <div class="gen-xyz-grid">
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-in-other-x-led"></span><span class="gen-xyz-label" id="gen-in-other-x-label">x</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-in-other-x-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-in-other-x" data-axis="x" data-group="input" data-type="other" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-in-other-x-popup"></div><div class="fx-field-error" id="gen-in-other-x-error"></div></div>
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-in-other-y-led"></span><span class="gen-xyz-label" id="gen-in-other-y-label">y</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-in-other-y-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-in-other-y" data-axis="y" data-group="input" data-type="other" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-in-other-y-popup"></div><div class="fx-field-error" id="gen-in-other-y-error"></div></div>
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-in-other-z-led"></span><span class="gen-xyz-label" id="gen-in-other-z-label">z</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-in-other-z-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-in-other-z" data-axis="z" data-group="input" data-type="other" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-in-other-z-popup"></div><div class="fx-field-error" id="gen-in-other-z-error"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gen-panel-column" id="gen-panel-output">
+                                <div class="gen-panel-column-header">
+                                    <span class="gen-panel-column-dot config-column-dot-output"></span>
+                                    <span class="gen-panel-column-title">OUTPUT</span>
+                                </div>
+                                <div class="gen-address-block">
+                                    <div class="gen-address-label">StartAddress</div>
+                                    <div class="gen-address-desc">Premiere adresse (pos = 1)</div>
+                                    <div class="gen-xyz-grid">
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-out-start-x-led"></span><span class="gen-xyz-label" id="gen-out-start-x-label">x</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-out-start-x-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-out-start-x" data-axis="x" data-group="output" data-type="start" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-out-start-x-popup"></div><div class="fx-field-error" id="gen-out-start-x-error"></div></div>
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-out-start-y-led"></span><span class="gen-xyz-label" id="gen-out-start-y-label">y</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-out-start-y-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-out-start-y" data-axis="y" data-group="output" data-type="start" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-out-start-y-popup"></div><div class="fx-field-error" id="gen-out-start-y-error"></div></div>
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-out-start-z-led"></span><span class="gen-xyz-label" id="gen-out-start-z-label">z</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-out-start-z-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-out-start-z" data-axis="z" data-group="output" data-type="start" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-out-start-z-popup"></div><div class="fx-field-error" id="gen-out-start-z-error"></div></div>
+                                    </div>
+                                </div>
+                                <div class="gen-address-block">
+                                    <div class="gen-address-label">OtherAddress</div>
+                                    <div class="gen-address-desc">Adresses suivantes (pos &gt; 1)</div>
+                                    <div class="gen-xyz-grid">
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-out-other-x-led"></span><span class="gen-xyz-label" id="gen-out-other-x-label">x</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-out-other-x-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-out-other-x" data-axis="x" data-group="output" data-type="other" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-out-other-x-popup"></div><div class="fx-field-error" id="gen-out-other-x-error"></div></div>
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-out-other-y-led"></span><span class="gen-xyz-label" id="gen-out-other-y-label">y</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-out-other-y-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-out-other-y" data-axis="y" data-group="output" data-type="other" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-out-other-y-popup"></div><div class="fx-field-error" id="gen-out-other-y-error"></div></div>
+                                        <div class="gen-xyz-label-wrap"><span class="fx-led led-off" id="gen-out-other-z-led"></span><span class="gen-xyz-label" id="gen-out-other-z-label">z</span></div>
+                                        <div class="gen-fx-field-wrap"><pre class="gen-fx-highlight" id="gen-out-other-z-hl" aria-hidden="true"></pre><input type="text" class="gen-fx-field" id="gen-out-other-z" data-axis="z" data-group="output" data-type="other" autocomplete="off" spellcheck="false"><div class="fx-autocomplete-popup" id="gen-out-other-z-popup"></div><div class="fx-field-error" id="gen-out-other-z-error"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- PANEL EDIT -->
+            <div class="panel panel-edit active" id="panel-edit">
+                <div class="panel-content edit-panel-content">
+                    <header class="panel-header edit-header">
+                        <h2 class="panel-title">Inputs / Outputs</h2>
+                        <div class="pane-tools">
+                            <button class="tool-btn" id="btn-search" aria-label="Rechercher">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </button>
+                            <button class="help-btn" aria-label="Aide Edit">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </header>
+
+                    <div class="edit-split-container">
+                        <div class="edit-split-pane">
+                            <div class="edit-pane-label"><span class="edit-pane-dot edit-pane-dot-input"></span><span class="edit-pane-text">INPUT</span></div>
+                            <div class="editor-frame"><div class="editor-container"><div class="editor-gutter"><div class="gutter-content" id="gutIn"></div></div><div class="editor-main"><pre class="editor-highlight" id="hlIn" aria-hidden="true"></pre><textarea id="srcIn" class="editor-textarea" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea></div></div></div>
+                        </div>
+                        <div class="edit-split-pane">
+                            <div class="edit-pane-label"><span class="edit-pane-dot edit-pane-dot-output"></span><span class="edit-pane-text">OUTPUT</span></div>
+                            <div class="editor-frame"><div class="editor-container"><div class="editor-gutter"><div class="gutter-content" id="gutOut"></div></div><div class="editor-main"><pre class="editor-highlight" id="hlOut" aria-hidden="true"></pre><textarea id="srcOut" class="editor-textarea" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="error-bar" id="error-bar">
+                        <div class="error-bar-header">
+                            <div class="error-bar-status" id="error-bar-status"></div>
+                            <div class="error-bar-actions">
+                                <button class="error-bar-verify" id="btn-verify" aria-label="Verifier maintenant">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21.5 2l-6 6m0 0l-6 6m6-6L21.5 2M2.5 12a10 10 0 1 0 19.5-2"></path>
+                                        <circle cx="12" cy="12" r="10" stroke-dasharray="4 2"></circle>
+                                    </svg>
+                                    <span>Verifier</span>
+                                </button>
+                                <button class="error-bar-toggle" id="error-bar-toggle" aria-label="Afficher/Masquer les erreurs">
+                                    <svg class="toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="error-bar-body" id="error-bar-body"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL APERCU -->
+            <div class="panel panel-preview" id="panel-preview">
+                <div class="panel-content preview-panel-content">
+                    <section class="preview-table-section">
+                        <div class="preview-fixed-header">
+                            <div class="preview-table-header">
+                                <div class="preview-table-title-wrap">
+                                    <h3 class="preview-table-title">Table des adresses</h3>
+                                </div>
+                                <span class="preview-range" id="preview-range"></span>
+                            </div>
+                            <div class="preview-header-row">
+                                <div>Pos</div>
+                                <div>Categorie</div>
+                                <div>Nom</div>
+                                <div>Adresse</div>
+                                <div>Commentaire</div>
+                            </div>
+                        </div>
+                        <div class="preview-table-body" id="preview-table-body"></div>
+                        <div class="preview-empty" id="preview-empty" style="display:none;">-- no items defined --</div>
+                        <div class="preview-error" id="preview-error" style="display:none;"></div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- PANEL EXPORT -->
+            <div class="panel panel-export" id="panel-export">
+                <div class="panel-content export-panel-content">
+                    <section class="export-config-section">
+                        <div class="export-config-header">
+                            <h3 class="export-config-title">Export</h3>
+                            <span class="export-stats" id="export-stats"></span>
+                        </div>
+                        <div class="export-format-row">
+                            <label class="export-format-label" for="export-format-select">Format</label>
+                            <select class="export-format-select" id="export-format-select"></select>
+                        </div>
+                        <div class="export-filename-row">
+                            <label class="export-filename-label" for="export-filename">Fichier</label>
+                            <input type="text" class="export-filename-input" id="export-filename" placeholder="nom_du_fichier" autocomplete="off" spellcheck="false">
+                            <button class="export-btn" id="btn-export">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <span>Exporter</span>
+                            </button>
+                        </div>
+                    </section>
+                    <section class="export-preview-section">
+                        <div class="export-preview-header">
+                            <h3 class="export-preview-title">Apercu du fichier</h3>
+                        </div>
+                        <pre class="export-preview-area" id="export-preview">-- no data to export --</pre>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div class="statut-panel" id="statutPanel">
+            <span class="statut-item"><span class="statut-label">INPUT</span><span class="statut-value statut-input-value">0</span></span>
+            <span class="statut-separator"></span>
+            <span class="statut-item"><span class="statut-label">OUTPUT</span><span class="statut-value statut-output-value">0</span></span>
+            <span class="statut-separator"></span>
+            <span class="statut-item statut-item-error">
+                <svg class="statut-error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <span class="statut-value statut-error-value">0</span>
+            </span>
+        </div>
+
+        <nav class="bottom-nav">
+            <button class="nav-btn" data-panel="config">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span>Config</span>
+            </button>
+            <button class="nav-btn active" data-panel="edit">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                <span>Edit</span>
+            </button>
+            <button class="nav-btn" data-panel="preview">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                <span>Apercu</span>
+            </button>
+            <button class="nav-btn" data-panel="export">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Export</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Ordre des scripts : core.js AVANT FormatGenerators.js -->
+    <script src="Core/FormulaEvaluator.js"></script>
+    <script src="Core/AddressGenerator.js"></script>
+    <script src="Core/core.js"></script>
+    <script src="Core/FormatGenerators.js"></script>
+    <script src="Core/ExportManager.js"></script>
+    <script src="UI/config/PLC_PRESETS.js"></script>
+    <script src="app.js"></script>
+    <script src="UI/edit/Edit_ui.js"></script>
+    <script src="UI/config/Config_ui.js"></script>
+    <script src="UI/config/GenPanel_ui.js"></script>
+    <script src="UI/preview/Preview_ui.js"></script>
+    <script src="UI/export/Export_ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-sm); padding: var(--spacing-sm) var(--spacing-lg); border-radius: var(--border-radius); font-weight: 500; transition: all var(--transition-fast); cursor: pointer; }
+.btn-primary { background-color: var(--primary-color); color: white; }
+.btn-primary:hover { background-color: var(--primary-hover); }
+.btn-secondary { background-color: var(--bg-tertiary); color: var(--text-primary); }
+
+.notification { display: flex; align-items: flex-start; gap: var(--spacing-sm); padding: var(--spacing-md); background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg); opacity: 0; transform: translateX(120%); transition: opacity var(--transition-normal) ease, transform var(--transition-normal) ease; position: relative; overflow: hidden; }
+.notification::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background-color: var(--notification-color); }
+.notification-visible { opacity: 1; transform: translateX(0); }
+.notification-hiding { opacity: 0; transform: translateX(120%); }
+.notification-info { --notification-color: var(--notification-info); border-color: rgba(59,130,246,0.3); }
+.notification-success { --notification-color: var(--notification-success); border-color: rgba(16,185,129,0.3); }
+.notification-warning { --notification-color: var(--notification-warning); border-color: rgba(245,158,11,0.3); }
+.notification-error { --notification-color: var(--notification-error); border-color: rgba(239,68,68,0.3); }
+.notification-icon { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--notification-color); }
+.notification-content { flex: 1; min-width: 0; }
+.notification-message { color: var(--text-primary); font-size: 0.85rem; line-height: 1.4; }
+.notification-close { display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: var(--border-radius); color: var(--text-tertiary); cursor: pointer; transition: all var(--transition-fast); flex-shrink: 0; }
+.notification-close:hover { background-color: var(--bg-tertiary); color: var(--text-primary); }
+.notification-close svg { width: 13px; height: 13px; }

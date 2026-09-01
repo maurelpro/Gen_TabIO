@@ -1,0 +1,584 @@
+/* config.css - Panneau Configuration : Parties 1 et 2 */
+
+.config-panel-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    padding-bottom: calc(var(--nav-height) + 48px);
+    gap: var(--spacing-xl);
+    overflow-y: auto;
+}
+
+/* Separation entre les deux parties */
+.config-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.config-section-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.config-section-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.config-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* ============================================================
+   PARTIE 1 : Definition de l'adresse
+   ============================================================ */
+.config-top-bar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.config-select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    max-width: 320px;
+}
+
+.config-select-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+}
+
+.config-select {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    outline: none;
+}
+
+.config-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.config-select:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* Groupe toggle avec label */
+.config-toggle-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Label Auto : texte fixe, couleur dynamique */
+.config-toggle-label-text {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: color var(--transition-normal);
+}
+
+/* Mode Auto actif : orange */
+.config-toggle-label-text.label-active {
+    color: var(--warning-color);
+}
+
+/* Mode Auto non actif : gris */
+.config-toggle-label-text.label-inactive {
+    color: var(--text-tertiary);
+}
+
+/* ============================================================
+   Toggle Auto/Manuel
+   - Coche = Mode Auto (couleur orange)
+   - Non coche = Mode Manuel (couleur grise)
+   ============================================================ */
+.config-toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.config-toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+/* Etat non coche : Mode Manuel = gris neutre */
+.config-toggle-slider {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(148, 163, 184, 0.2);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    border-radius: 999px;
+    transition: all var(--transition-normal);
+    cursor: pointer;
+}
+
+.config-toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    bottom: 2px;
+    background-color: #94a3b8;
+    border-radius: 50%;
+    transition: all var(--transition-normal);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Etat coche : Mode Auto = orange */
+.config-toggle-input:checked + .config-toggle-slider {
+    background-color: rgba(245, 158, 11, 0.25);
+    border-color: rgba(245, 158, 11, 0.5);
+}
+
+.config-toggle-input:checked + .config-toggle-slider::before {
+    transform: translateX(20px);
+    background-color: var(--warning-color);
+}
+
+.config-columns {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex: 1;
+    min-height: 0;
+}
+
+.config-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    min-width: 0;
+}
+
+.config-column-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    margin-bottom: 2px;
+}
+
+.config-column-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.config-column-dot-input { background-color: var(--notification-info); }
+.config-column-dot-output { background-color: var(--notification-success); }
+
+.config-field {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    outline: none;
+    transition: all var(--transition-fast);
+    cursor: text;
+}
+
+.config-field:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.config-field.field-disabled {
+    opacity: 0.5;
+    cursor: default;
+    background-color: var(--bg-secondary);
+}
+
+.config-field-info {
+    font-size: 0.72rem;
+    margin-top: 4px;
+    min-height: 18px;
+    line-height: 1.4;
+    transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.config-field-info.info-example {
+    color: var(--text-tertiary);
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.config-field-info.info-error {
+    color: var(--danger-color);
+    font-style: normal;
+    font-weight: 500;
+    opacity: 1;
+}
+
+/* ============================================================
+   PARTIE 2 : Formules de generation (GenPanel)
+   ============================================================ */
+
+.gen-panel {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex: 1;
+    min-height: 200px;
+}
+
+.gen-panel-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    min-width: 0;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-md);
+}
+
+.gen-panel-column-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.gen-panel-column-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.gen-panel-column-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+}
+
+.gen-address-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.gen-address-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-tertiary);
+}
+
+.gen-address-desc {
+    font-size: 0.65rem;
+    color: var(--text-tertiary);
+    font-style: italic;
+    margin-top: -2px;
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Grille x, y, z avec LED */
+.gen-xyz-grid {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 6px var(--spacing-xs);
+    align-items: start;
+}
+
+.gen-xyz-label-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: flex-end;
+    padding-right: 4px;
+    height: 34px;
+}
+
+.gen-xyz-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.gen-xyz-label.xyz-disabled {
+    color: var(--text-tertiary);
+    opacity: 0.3;
+}
+
+/* ============================================================
+   LEDs de validation
+   ============================================================ */
+.fx-led {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all var(--transition-normal);
+}
+
+.fx-led.led-off {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.fx-led.led-neutral {
+    background-color: var(--text-tertiary);
+    opacity: 0.4;
+}
+
+.fx-led.led-ok {
+    background-color: var(--success-color);
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.fx-led.led-error {
+    background-color: var(--danger-color);
+    box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+    animation: led-pulse 1s ease-in-out infinite;
+}
+
+@keyframes led-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* ============================================================
+   Champ de formule - ALIGNEMENT PIXEL-PERFECT
+   ============================================================ */
+
+:root {
+    --fx-font-family: 'JetBrains Mono', monospace;
+    --fx-font-size: 13px;
+    --fx-line-height: 20px;
+    --fx-padding-v: 7px;
+    --fx-padding-h: 10px;
+    --fx-border-width: 1px;
+    --fx-height: calc(var(--fx-line-height) + (var(--fx-padding-v) * 2) + (var(--fx-border-width) * 2));
+}
+
+.gen-fx-field-wrap {
+    position: relative;
+    width: 100%;
+    height: var(--fx-height);
+}
+
+.gen-fx-highlight,
+.gen-fx-field {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    font-family: var(--fx-font-family);
+    font-size: var(--fx-font-size);
+    font-weight: 400;
+    font-style: normal;
+    line-height: var(--fx-line-height);
+    letter-spacing: 0;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    text-align: left;
+    direction: ltr;
+
+    padding: var(--fx-padding-v) var(--fx-padding-h);
+    margin: 0;
+
+    box-sizing: border-box;
+    border: var(--fx-border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+
+    white-space: pre;
+    word-wrap: normal;
+    overflow: hidden;
+    tab-size: 4;
+    -moz-tab-size: 4;
+
+    text-rendering: auto;
+    -webkit-text-size-adjust: none;
+}
+
+.gen-fx-highlight {
+    z-index: 1;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.gen-fx-field {
+    z-index: 2;
+    background: transparent;
+    color: transparent;
+    caret-color: var(--text-primary);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    resize: none;
+}
+
+.gen-fx-field::selection {
+    background-color: rgba(59, 130, 246, 0.3);
+    color: transparent;
+}
+
+.gen-fx-field::-moz-selection {
+    background-color: rgba(59, 130, 246, 0.3);
+    color: transparent;
+}
+
+.gen-fx-field:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.gen-fx-field.fx-disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.gen-fx-field.fx-disabled ~ .gen-fx-highlight {
+    opacity: 0.3;
+}
+
+/* Message d'erreur sous le champ */
+.fx-field-error {
+    font-size: 0.68rem;
+    color: var(--danger-color);
+    margin-top: 2px;
+    min-height: 0;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all var(--transition-fast);
+    line-height: 1.3;
+}
+
+.fx-field-error.error-visible {
+    opacity: 1;
+    max-height: 40px;
+    margin-top: 4px;
+}
+
+/* ============================================================
+   Surlignage syntaxique - SANS PADDING
+   ============================================================ */
+.fx-op { color: #c084fc; font-weight: 600; }
+.fx-var-pos { color: #fbbf24; font-weight: 600; background-color: rgba(251, 191, 36, 0.15); border-radius: 2px; }
+.fx-var-input { color: #60a5fa; font-weight: 500; background-color: rgba(96, 165, 250, 0.15); border-radius: 2px; }
+.fx-var-output { color: #34d399; font-weight: 500; background-color: rgba(52, 211, 153, 0.15); border-radius: 2px; }
+.fx-number { color: #f472b6; }
+.fx-paren { color: #a3a3a3; font-weight: 600; }
+.fx-error { color: var(--danger-color); text-decoration: underline wavy; text-underline-offset: 2px; }
+.fx-text { color: var(--text-secondary); }
+
+/* ============================================================
+   Popup d'autocompletion
+   ============================================================ */
+.fx-autocomplete-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 500;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.fx-autocomplete-popup.visible { display: block; }
+
+.fx-autocomplete-item {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    font-family: var(--fx-font-family);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.fx-autocomplete-item:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.fx-autocomplete-item.selected {
+    background-color: rgba(59, 130, 246, 0.2);
+    color: var(--text-primary);
+}
+
+/* Indicateur de desynchronisation */
+.gen-panel-outdated {
+    border-color: var(--warning-color) !important;
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .config-panel-content { padding: var(--spacing-md); padding-bottom: calc(var(--nav-height) + 40px); }
+    .config-columns { flex-direction: column; }
+    .config-top-bar { flex-direction: column; align-items: stretch; }
+    .config-select-group { max-width: none; }
+    .gen-panel { flex-direction: column; }
+}

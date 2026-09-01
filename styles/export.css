@@ -1,0 +1,246 @@
+/* export.css - Panel Export */
+
+.export-panel-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    padding-bottom: calc(var(--nav-height) + 48px);
+    gap: var(--spacing-md);
+    overflow: hidden;
+}
+
+/* Section de configuration de l'export */
+.export-config-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-md);
+    flex-shrink: 0;
+}
+
+.export-config-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.export-config-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.export-stats {
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-tertiary);
+}
+
+/* Ligne de selection du format */
+.export-format-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.export-format-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+}
+
+.export-format-select {
+    flex: 1;
+    max-width: 300px;
+    padding: 8px 12px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    outline: none;
+}
+
+.export-format-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+/* Ligne du nom de fichier */
+.export-filename-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.export-filename-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+}
+
+.export-filename-input {
+    flex: 1;
+    max-width: 300px;
+    padding: 8px 12px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.export-filename-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.export-filename-input::placeholder {
+    color: var(--text-tertiary);
+    opacity: 0.5;
+    font-style: italic;
+}
+
+/* Bouton Export */
+.export-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.export-btn:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.export-btn:active {
+    transform: scale(0.98);
+}
+
+.export-btn.btn-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background-color: var(--bg-tertiary);
+}
+
+.export-btn.btn-disabled:hover {
+    box-shadow: none;
+}
+
+.export-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Section Preview */
+.export-preview-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+}
+
+.export-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.export-preview-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+.export-preview-area {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: var(--spacing-md);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Scrollbar personnalisee */
+.export-preview-area::-webkit-scrollbar {
+    width: 6px;
+}
+
+.export-preview-area::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+.export-preview-area::-webkit-scrollbar-thumb {
+    background-color: var(--bg-tertiary);
+    border-radius: 3px;
+}
+
+.export-preview-area::-webkit-scrollbar-thumb:hover {
+    background-color: var(--border-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .export-panel-content {
+        padding: var(--spacing-md);
+        padding-bottom: calc(var(--nav-height) + 40px);
+    }
+
+    .export-format-row,
+    .export-filename-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .export-format-select,
+    .export-filename-input {
+        max-width: none;
+    }
+}

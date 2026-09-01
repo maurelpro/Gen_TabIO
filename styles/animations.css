@@ -1,0 +1,16 @@
+@keyframes slideInForward { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideOutForward { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-100%); } }
+@keyframes slideInBackward { from { opacity: 0; transform: translateX(-100%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideOutBackward { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(100%); } }
+.slide-in-forward { animation: slideInForward var(--transition-slow) forwards; }
+.slide-out-forward { animation: slideOutForward var(--transition-slow) forwards; }
+.slide-in-backward { animation: slideInBackward var(--transition-slow) forwards; }
+.slide-out-backward { animation: slideOutBackward var(--transition-slow) forwards; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.fade-in { animation: fadeIn var(--transition-normal) forwards; }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+.scale-in { animation: scaleIn var(--transition-normal) forwards; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.spinner { animation: spin 1s linear infinite; }

@@ -1,0 +1,280 @@
+/* preview.css - Panel Apercu : tableau unique avec en-tete fixe */
+
+.preview-panel-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    padding-bottom: calc(var(--nav-height) + 48px);
+    gap: var(--spacing-md);
+    overflow: hidden;
+}
+
+/* Section principale du tableau */
+.preview-table-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 0;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* ============================================================
+   Zone fixe (sticky) : titre + plage + en-tete colonnes
+   ============================================================ */
+.preview-fixed-header {
+    flex-shrink: 0;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 10;
+}
+
+.preview-table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+}
+
+.preview-table-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.preview-table-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.preview-range {
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-tertiary);
+    font-weight: 500;
+}
+
+/* En-tete de colonnes - STICKY */
+.preview-header-row {
+    display: grid;
+    grid-template-columns: 50px 90px 1fr 140px 1fr;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* ============================================================
+   Corps du tableau : zone scrollable
+   ============================================================ */
+.preview-table-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Scrollbar personnalisee discrete */
+.preview-table-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.preview-table-body::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+.preview-table-body::-webkit-scrollbar-thumb {
+    background-color: var(--bg-tertiary);
+    border-radius: 3px;
+}
+
+.preview-table-body::-webkit-scrollbar-thumb:hover {
+    background-color: var(--border-color);
+}
+
+/* ============================================================
+   Ligne individuelle avec alternance de couleurs
+   ============================================================ */
+.preview-row {
+    display: grid;
+    grid-template-columns: 50px 90px 1fr 140px 1fr;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: 0.8rem;
+    transition: background-color var(--transition-fast);
+    flex-shrink: 0;
+}
+
+/* Alternance de teintes : lignes paires et impaires */
+.preview-row:nth-child(odd) {
+    background-color: var(--bg-primary);
+}
+
+.preview-row:nth-child(even) {
+    background-color: rgba(30, 41, 59, 0.5);
+}
+
+/* Hover : teinte legerement plus claire */
+.preview-row:hover {
+    background-color: var(--bg-tertiary);
+}
+
+/* Cellules */
+.preview-cell {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.preview-cell-pos {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    font-size: 0.75rem;
+}
+
+.preview-cell-category {
+    display: flex;
+    align-items: center;
+}
+
+.preview-category-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.preview-category-input {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: var(--notification-info);
+}
+
+.preview-category-output {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: var(--notification-success);
+}
+
+.preview-cell-name {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.preview-cell-address {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.preview-cell-comment {
+    color: var(--text-tertiary);
+    font-style: italic;
+    font-size: 0.75rem;
+}
+
+/* ============================================================
+   Messages vide et erreur
+   ============================================================ */
+.preview-empty,
+.preview-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--text-tertiary);
+    min-height: 100px;
+    flex: 1;
+}
+
+.preview-error {
+    color: var(--danger-color);
+    font-weight: 500;
+}
+
+/* ============================================================
+   Styles pour la table d'aide
+   ============================================================ */
+.help-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    margin: var(--spacing-sm) 0;
+}
+
+.help-table th {
+    text-align: left;
+    padding: 6px 10px;
+    background-color: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.help-table td {
+    padding: 5px 10px;
+    border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+    vertical-align: top;
+}
+
+.help-table tr:last-child td {
+    border-bottom: none;
+}
+
+.help-table code {
+    background-color: var(--bg-tertiary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 768px) {
+    .preview-panel-content {
+        padding: var(--spacing-md);
+        padding-bottom: calc(var(--nav-height) + 40px);
+    }
+
+    .preview-header-row,
+    .preview-row {
+        grid-template-columns: 40px 70px 1fr 100px 1fr;
+        gap: var(--spacing-xs);
+        font-size: 0.7rem;
+    }
+
+    .preview-cell-pos { font-size: 0.68rem; }
+    .preview-category-badge { font-size: 0.6rem; padding: 2px 6px; }
+}
